@@ -1,35 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'controllers/task_controller.dart';
 import 'screens/home_screen.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await initializeNotifications();
+void main() {
   runApp(MyApp());
 }
 
-Future<void> initializeNotifications() async {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-  const AndroidInitializationSettings androidInitializationSettings =
-      AndroidInitializationSettings('app_icon');
-  const InitializationSettings initializationSettings = InitializationSettings(
-    android: androidInitializationSettings,
-  );
-
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-}
-
 class MyApp extends StatelessWidget {
-  final TaskController taskController = Get.put(TaskController());
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Task Manager',
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode
+          .system, // Automatically use light/dark mode based on the system preference
       home: HomeScreen(),
     );
   }
